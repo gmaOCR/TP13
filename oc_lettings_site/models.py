@@ -16,7 +16,7 @@ class Address(models.Model):
 
     class Meta:
         verbose_name = "Address"
-        verbose_name_plural = "Addresses"
+        verbose_name_plural = "Address"
 
 
 class Letting(models.Model):
