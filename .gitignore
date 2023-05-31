@@ -2,4 +2,4 @@
 *.pyc
 venv
 .idea
-oc-lettings-site.sqlite3.bak
+bak/oc-lettings-site.sqlite3.bak
