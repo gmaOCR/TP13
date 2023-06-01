@@ -1,7 +1,4 @@
-from django.contrib.auth.models import User
 from django.db import migrations
-from oc_lettings_site.models import Profile as OldProfile
-from profiles.models import Profile as NewProfile
 
 
 def check_old_table(apps, schema_editor):
@@ -11,6 +8,10 @@ def check_old_table(apps, schema_editor):
 
 
 def transfer_data(apps, schema_editor):
+    OldProfile = apps.get_model('oc_lettings_site', 'Profile')
+    NewProfile = apps.get_model('profiles', 'Profile')
+    User = apps.get_model('auth', 'User')
+
     old_profiles = OldProfile.objects.all()
 
     for old_profile in old_profiles:
@@ -21,7 +22,7 @@ def transfer_data(apps, schema_editor):
 
 
 def delete_old_table(apps, schema_editor):
-    schema_editor.connection.execute("DROP TABLE oc_lettings_site_profile")
+    schema_editor.execute("DROP TABLE oc_lettings_site_profile")
 
 
 class Migration(migrations.Migration):

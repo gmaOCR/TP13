@@ -30,12 +30,10 @@ def transfer_letting_data(apps, schema_editor):
         )
         lettings_letting.save()
 
-
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('oc_lettings_site', '0001_initial'),
         ('lettings', '0001_initial'),
+        ('oc_lettings_site', '0001_initial'),
     ]
 
     operations = [

@@ -3,6 +3,11 @@
 from django.db import migrations
 
 
+def delete_old_table(apps, schema_editor):
+    schema_editor.execute("DROP TABLE oc_lettings_site_address")
+    schema_editor.execute("DROP TABLE oc_lettings_site_letting")
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -14,4 +19,5 @@ class Migration(migrations.Migration):
             name='address',
             options={'verbose_name': 'Address', 'verbose_name_plural': 'Address'},
         ),
+        migrations.RunPython(delete_old_table),
     ]
