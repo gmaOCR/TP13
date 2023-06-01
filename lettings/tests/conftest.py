@@ -1,12 +1,6 @@
 import pytest
 from django.urls import reverse
-from django.test import Client
 from lettings.models import Letting, Address
-
-
-@pytest.fixture
-def client():
-    return Client()
 
 
 @pytest.fixture
@@ -22,7 +16,7 @@ def letting(address):
 
 @pytest.fixture
 def letting_index_url():
-    return reverse('lettings:index')
+    return reverse('lettings:lettings_index')
 
 
 @pytest.fixture
