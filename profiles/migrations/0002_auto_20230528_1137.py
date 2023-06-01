@@ -21,12 +21,6 @@ def transfer_data(apps, schema_editor):
         new_profile.save()
 
 
-def delete_old_table(apps, schema_editor):
-    table_names = schema_editor.connection.introspection.table_names()
-    if 'oc_lettings_site_profile' in table_names:
-        schema_editor.execute("DROP TABLE oc_lettings_site_profile")
-
-
 class Migration(migrations.Migration):
     dependencies = [
         ('profiles', '0001_initial'),
@@ -36,5 +30,4 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(check_old_table, reverse_code=migrations.RunPython.noop),
         migrations.RunPython(transfer_data),
-        migrations.RunPython(delete_old_table),
     ]
