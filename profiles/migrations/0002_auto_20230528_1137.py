@@ -22,7 +22,9 @@ def transfer_data(apps, schema_editor):
 
 
 def delete_old_table(apps, schema_editor):
-    schema_editor.execute("DROP TABLE oc_lettings_site_profile")
+    table_names = schema_editor.connection.introspection.table_names()
+    if 'oc_lettings_site_profile' in table_names:
+        schema_editor.execute("DROP TABLE oc_lettings_site_profile")
 
 
 class Migration(migrations.Migration):
