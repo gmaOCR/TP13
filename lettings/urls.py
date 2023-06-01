@@ -5,4 +5,5 @@ app_name = 'lettings'
 
 urlpatterns = [
     path('', lettings_view.index, name='lettings_index'),
+    path('<int:letting_id>/', lettings_view.letting, name='letting'),
 ]
