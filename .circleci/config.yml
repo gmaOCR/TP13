@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build_test:
     docker:
-      - image: python:3.10
+      - image: circleci/python:3.10
         environment:
           PIPENV_VENV_IN_PROJECT: true
 
@@ -14,8 +14,12 @@ jobs:
           name: Install pipenv and dependencies
           command: |
             pip install pipenv
+
+      # Installation des dépendances avec Pipenv
+      - run:
+          name: Install Dependencies
+          command: |
             pipenv install -r requirements.txt
-            pipenv install --deploy --system
 
 
       - run: echo "Building testing"
