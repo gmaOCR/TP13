@@ -9,10 +9,11 @@ jobs:
       - checkout
       - run: echo "Building the project"
       - run:
-          name: Install dependencies
+          name: Install pipenv
+          command: pip install pipenv
+      - run:
+          name: Activate virtual environnement
           command: |
-            pip install --user pipenv
-            pipenv install
             pipenv shell
       - run: echo "Building testing"
       - run:
