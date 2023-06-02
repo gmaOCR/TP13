@@ -14,10 +14,10 @@ jobs:
           name: Install pipenv
           command: |
             pip install pipenv
-      - run: 
-          command: |
-            ls -al
-            cat /home/circleci/project/requirements.txt
+      #- run: 
+      #    command: |
+      #      ls -al
+      #      cat /home/circleci/project/requirements.txt
 
       - run:
           name: Install Dependencies
