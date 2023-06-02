@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build_and_test:
+  build_test_and_deploy:
     docker:
       - image: python:3.10
 
@@ -37,18 +37,18 @@ jobs:
 
 
 workflows:
-  build_test_deploy:
-    jobs:
-      - build_test
-      - containerize:
-          requires:
-            - build_test
-          filters:
-            branches:
-              only: main
-      - deploy:
-          requires:
-            - containerize
-          filters:
-            branches:
-              only: main
+    build_test_and_deploy:
+      jobs:
+        - build_test
+        - containerize:
+            requires:
+              - build_test
+            filters:
+              branches:
+                only: main
+        - deploy:
+            requires:
+              - containerize
+            filters:
+              branches:
+                only: main
