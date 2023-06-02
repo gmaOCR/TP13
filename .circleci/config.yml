@@ -1,1 +1,36 @@
 version: 2.1
+
+jobs:
+  build_and_test:
+    docker:
+      - image: python:3.10
+
+    steps:
+      - checkout
+      - run: echo "Building the project"
+      - run:
+          name: Install dependencies
+          command: |
+            pip install --user pipenv
+            pipenv install
+            pipenv shell
+      - run: echo "Building testing"
+      - run:
+          name: Run building test
+          command: pytest
+
+  containerize:
+    docker:
+      - image: docker:latest
+    steps:
+      - checkout
+      - run: echo "Running containerize"
+      - run: echo docker build -t oc_lettings .
+
+  deploy:
+    docker:
+      - image: circleci/python:3.10
+    steps:
+      - checkout
+      - run: echo "Running deploy"
+      - run: docker push oc_lettings
