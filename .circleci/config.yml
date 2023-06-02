@@ -34,3 +34,21 @@ jobs:
       - checkout
       - run: echo "Running deploy"
       - run: docker push oc_lettings
+
+
+workflows:
+  build_test_deploy:
+    jobs:
+      - build_test
+      - containerize:
+          requires:
+            - build_test
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - containerize
+          filters:
+            branches:
+              only: main
