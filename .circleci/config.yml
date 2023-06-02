@@ -10,7 +10,7 @@ jobs:
       - run: echo "Building the project"
       - run:
           name: Install pipenv
-          command: pip install pipenv
+          command: pip install --user pipenv
       - run:
           name: Activate virtual environnement
           command: |
