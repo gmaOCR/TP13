@@ -10,11 +10,15 @@ jobs:
       - run: echo "Building the project"
       - run:
           name: Install pipenv
-          command: pip install --user pipenv
+          command: pip install pipenv
       - run:
           name: Activate virtual environnement
-          command: |
-            pipenv shell
+          command: /root/.local/bin/pipenv shell
+
+      - run:
+          name: Print environment variables
+          command: printenv
+
       - run: echo "Building testing"
       - run:
           name: Run building test
