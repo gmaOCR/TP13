@@ -14,13 +14,12 @@ jobs:
           name: Install pipenv and dependencies
           command: |
             pip install pipenv
-            pipenv install
-            pipenv shell
+            pipenv install --dev
 
       - run:
-          name: Print environment variables
-          command: printenv
-
+          name: Activate pipenv environment
+          command: pipenv shell
+          
       - run: echo "Building testing"
       - run:
           name: Run building test
