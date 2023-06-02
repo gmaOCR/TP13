@@ -15,7 +15,7 @@ jobs:
           command: |
             pip install pipenv
       - run: 
-          command: ls
+          command: ls -al
       - run:
           name: Install Dependencies
           command: |
