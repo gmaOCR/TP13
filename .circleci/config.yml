@@ -14,16 +14,6 @@ jobs:
           name: Install pipenv
           command: |
             pip install pipenv
-      #- run: 
-      #    command: |
-      #      ls -al
-      #      cat /home/circleci/project/requirements.txt
-
-      - run:
-          name: Install Dependencies
-          command: |
-            pipenv install -r requirements.txt
-
 
       - run: echo "Building testing"
       - run:
