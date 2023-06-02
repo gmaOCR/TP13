@@ -14,8 +14,9 @@ jobs:
           name: Install pipenv and dependencies
           command: |
             pip install pipenv
-            pipenv install --deploy --system
             pipenv install -r requirements.txt
+            pipenv install --deploy --system
+
 
       - run: echo "Building testing"
       - run:
