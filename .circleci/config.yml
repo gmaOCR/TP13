@@ -15,6 +15,7 @@ jobs:
           command: |
             pip install pipenv
             pipenv install --deploy --system
+            pipenv install -r requirements.txt
 
       - run: echo "Building testing"
       - run:
