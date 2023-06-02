@@ -11,11 +11,11 @@ jobs:
       - checkout
       - run: echo "Building the project"
       - run:
-          name: Install pipenv and dependencies
+          name: Install pipenv
           command: |
             pip install pipenv
-
-      # Installation des dépendances avec Pipenv
+      - run: 
+          command: ls
       - run:
           name: Install Dependencies
           command: |
