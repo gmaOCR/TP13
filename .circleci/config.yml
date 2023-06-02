@@ -15,9 +15,7 @@ jobs:
           command: |
             pip install pipenv
             pipenv install
-      - run:
-          name: Activate virtual environnement
-          command: pipenv shell
+            pipenv shell
 
       - run:
           name: Print environment variables
