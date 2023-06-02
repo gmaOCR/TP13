@@ -4,16 +4,20 @@ jobs:
   build_test:
     docker:
       - image: python:3.10
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
 
     steps:
       - checkout
       - run: echo "Building the project"
       - run:
-          name: Install pipenv
-          command: pip install pipenv
+          name: Install pipenv and dependencies
+          command: |
+            pip install pipenv
+            pipenv install
       - run:
           name: Activate virtual environnement
-          command: /root/.local/bin/pipenv shell
+          command: pipenv shell
 
       - run:
           name: Print environment variables
