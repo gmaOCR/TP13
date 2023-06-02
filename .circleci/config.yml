@@ -14,6 +14,7 @@ jobs:
           name: Install pipenv
           command: |
             pip install pipenv
+            pipenv install
 
       - run: echo "Building testing"
       - run:
