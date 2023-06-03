@@ -13,7 +13,6 @@ jobs:
           name: Install pipenv
           command: |
             pip install pipenv
-            #pipenv install --deploy --system
             pip install -r requirements.txt
       - run:
           name: Run tests
