@@ -15,8 +15,6 @@ jobs:
           command: |
             pip install pipenv
             pipenv install --deploy --system
-
-      - run: echo "Running tests"
       - run:
           name: Run tests
           command: pipenv run pytest
@@ -25,8 +23,8 @@ jobs:
     docker:
       - image: docker:latest
     steps:
+      - setup_remote_docker
       - checkout
-      - run: echo "Running containerize"
       - run:
           name: Build Docker image
           command: |
@@ -40,7 +38,6 @@ jobs:
       - image: python:3.10
     steps:
       - checkout
-      - run: echo "Running deploy"
       - run: docker push oc_lettings
 
 workflows:
