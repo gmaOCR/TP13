@@ -4,8 +4,8 @@ jobs:
   build_test:
     docker:
       - image: circleci/python:3.10
-        environment:
-          PIPENV_VENV_IN_PROJECT: true
+    environment:
+      PIPENV_VENV_IN_PROJECT: true
 
     steps:
       - checkout
@@ -16,9 +16,9 @@ jobs:
             pip install pipenv
             pipenv install --deploy --system
 
-      - run: echo "Building testing"
+      - run: echo "Running tests"
       - run:
-          name: Run building test
+          name: Run tests
           command: pipenv run pytest
 
   containerize:
@@ -27,7 +27,13 @@ jobs:
     steps:
       - checkout
       - run: echo "Running containerize"
-      - run: echo docker build -t oc_lettings .
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t oc_lettings .
+            docker tag oc_lettings $DOCKERHUB_USERNAME/oc_lettings:$CIRCLE_SHA1
+            docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD
+            docker push $DOCKERHUB_USERNAME/oc_lettings:$CIRCLE_SHA1
 
   deploy:
     docker:
@@ -37,20 +43,19 @@ jobs:
       - run: echo "Running deploy"
       - run: docker push oc_lettings
 
-
 workflows:
-    build_test_deploy:
-      jobs:
-        - build_test
-        - containerize:
-            requires:
-              - build_test
-            filters:
-              branches:
-                only: main
-        - deploy:
-            requires:
-              - containerize
-            filters:
-              branches:
-                only: main
+  build_test_deploy:
+    jobs:
+      - build_test
+      - containerize:
+          requires:
+            - build_test
+          filters:
+            branches:
+              only: main
+      - deploy:
+          requires:
+            - containerize
+          filters:
+            branches:
+             only: main
