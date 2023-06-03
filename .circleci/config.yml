@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build_test:
     docker:
-      - image: circleci/python:3.10
+      - image: cimg/python:3.10
     environment:
       PIPENV_VENV_IN_PROJECT: true
 
@@ -34,7 +34,7 @@ jobs:
 
   deploy:
     docker:
-      - image: python:3.10
+      - image: cimg/python:3.10
     steps:
       - checkout
       - run: docker push oc_lettings
