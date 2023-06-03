@@ -9,7 +9,6 @@ jobs:
 
     steps:
       - checkout
-      - run: echo "Building the project"
       - run:
           name: Install pipenv
           command: |
