@@ -18,7 +18,7 @@ jobs:
 #          name: Run tests
 #          command: pipenv run pytest
 
-  containerize:
+  contenairize:
     docker:
       - image: docker:latest
     steps:
@@ -43,7 +43,7 @@ workflows:
 #  build_test_deploy:
 #    jobs:
 #      - build_test
-      - containerize:
+      - contenairize:
 #          requires:
 #            - build_test
           filters:
