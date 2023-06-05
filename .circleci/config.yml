@@ -16,16 +16,16 @@ jobs:
           command: pipenv run pytest
 
   containerize:
-  docker:
-    - image: docker:latest
-  steps:
-    - setup_remote_docker
-    - checkout
-    - run:
-        name: Build Docker image
-        command: |
-          docker build -t oc_lettings .
-          docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
+    docker:
+      - image: docker:latest
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t oc_lettings .
+            docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
 
   deploy:
     docker:
@@ -43,8 +43,8 @@ jobs:
           docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
           docker push registry.heroku.com/$HEROKU_APP/web
       - run:
-        name: Release app on Heroku
-        command: heroku container:release web --app $HEROKU_APP
+          name: Release app on Heroku
+          command: heroku container:release web --app $HEROKU_APP
 
   workflows:
     build_test_deploy:
