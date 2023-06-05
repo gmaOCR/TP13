@@ -41,7 +41,7 @@ jobs:
 
 workflows:
 #  build_test_deploy:
-#    jobs:
+   jobs:
 #      - build_test
       - contenairize:
 #          requires:
