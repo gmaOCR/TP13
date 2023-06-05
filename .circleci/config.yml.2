@@ -15,38 +15,27 @@ jobs:
           name: Run tests
           command: pipenv run pytest
 
-containerize:
-docker:
-  - image: docker:latest
-steps:
-  - setup_remote_docker
-  - checkout
-  - run:
-      name: Build Docker image
-      command: |
-        docker build -t oc_lettings .
-        docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
-
   deploy:
     docker:
       - image: docker:latest
     steps:
-      - checkout
       - setup_remote_docker
+      - checkout
       - run:
-          name: Login to Heroku Container Registry
+          name: Build Docker image
           command: |
-            echo "$HEROKU_API_KEY" | docker login --username=$HEROKU_USERNAME --password-stdin registry.heroku.com
+            docker build -t oc_lettings:$CIRCLE_SHA1 .
+            docker tag oc_lettings:$CIRCLE_SHA1 registry.heroku.com/tp13-gma/web:$CIRCLE_SHA1
+
       - run:
-          name: Push Docker image to Heroku
+          name: Deploy to Heroku
           command: |
-          docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
-          docker push registry.heroku.com/$HEROKU_APP/web
-      - run:
-        name: Release app on Heroku
-        command: heroku container:release web --app $HEROKU_APP
+            echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
+            docker push registry.heroku.com/$HEROKU_APP/web
+            heroku container:release web --app $HEROKU_APP
 
 workflows:
+  version: 2
   build_test_deploy:
     jobs:
       - build_test
