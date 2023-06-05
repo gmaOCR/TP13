@@ -57,6 +57,8 @@ workflows:
             branches:
               only: dev_ci_cd
       - deploy:
+          context:
+            - heroku credentials
           requires:
             - containerize
           filters:
@@ -64,5 +66,4 @@ workflows:
               only: dev_ci_cd
 
 # Définition du contexte CircleCI pour les variables d'environnement
-contexts:
-  - heroku credentials
+
