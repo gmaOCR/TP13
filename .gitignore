@@ -3,3 +3,4 @@
 venv
 .idea
 bak/oc-lettings-site.sqlite3.bak
+/tmp/
