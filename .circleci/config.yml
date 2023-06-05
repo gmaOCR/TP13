@@ -32,7 +32,7 @@ jobs:
       - image: docker:latest
     steps:
       - checkout
-      #- setup_remote_docker
+      - setup_remote_docker
       - run:
           name: Login to Heroku Container Registry
           command: |
@@ -49,10 +49,10 @@ jobs:
 workflows:
   build_test_deploy:
     jobs:
+      - containerize
       - build_test
-      - containerize:
-          requires:
-            - build_test
+#          requires:
+#            - build_test
 #          filters:
 #            branches:
 #              only: dev_ci_cd
@@ -61,6 +61,6 @@ workflows:
             - heroku credentials
           requires:
             - containerize
-#          filters:
-#            branches:
-#              only: dev_ci_cd
+          filters:
+            branches:
+              only: dev_ci_cd
