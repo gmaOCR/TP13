@@ -50,9 +50,9 @@ workflows:
   build_test_deploy:
     jobs:
       - build_test
-      - containerize:
-          requires:
-            - build_test
+      - containerize
+#          requires:
+#            - build_test
 #          filters:
 #            branches:
 #              only: dev_ci_cd
