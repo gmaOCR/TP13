@@ -24,14 +24,15 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            docker build -t oc_lettings .
-            docker tag oc_lettings registry.heroku.com/tp13-gma/web
+            docker build -t oc_lettings:$CIRCLE_SHA1 .
+            docker tag oc_lettings:$CIRCLE_SHA1 registry.heroku.com/tp13-gma/web:$CIRCLE_SHA1
+
       - run:
           name: Deploy to Heroku
           command: |
             echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
-            docker push registry.heroku.com/tp13-gma/web
-            heroku container:release web --app tp13-gma
+            docker push registry.heroku.com/$HEROKU_APP/web
+            heroku container:release web --app $HEROKU_APP
 
 workflows:
   version: 2
