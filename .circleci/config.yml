@@ -15,17 +15,17 @@ jobs:
           name: Run tests
           command: pipenv run pytest
 
-containerize:
-docker:
-  - image: docker:latest
-steps:
-  - setup_remote_docker
-  - checkout
-  - run:
-      name: Build Docker image
-      command: |
-        docker build -t oc_lettings .
-        docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
+  containerize:
+  docker:
+    - image: docker:latest
+  steps:
+    - setup_remote_docker
+    - checkout
+    - run:
+        name: Build Docker image
+        command: |
+          docker build -t oc_lettings .
+          docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
 
   deploy:
     docker:
@@ -50,12 +50,18 @@ workflows:
   build_test_deploy:
     jobs:
       - build_test
-      - deploy:
+      - containerize:
           requires:
             - build_test
           filters:
             branches:
-              only: main
+              only: dev_ci_cd
+      - deploy:
+          requires:
+            - containerize
+          filters:
+            branches:
+              only: dev_ci_cd
 
 # Définition du contexte CircleCI pour les variables d'environnement
 contexts:
