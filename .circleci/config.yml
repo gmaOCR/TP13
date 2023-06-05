@@ -4,9 +4,6 @@ jobs:
   build_test:
     docker:
       - image: cimg/python:3.10
-    environment:
-      PIPENV_VENV_IN_PROJECT: true
-
     steps:
       - checkout
       - run:
@@ -18,7 +15,7 @@ jobs:
           name: Run tests
           command: pipenv run pytest
 
-  contenairize:
+  deploy:
     docker:
       - image: docker:latest
     steps:
@@ -28,15 +25,19 @@ jobs:
           name: Build Docker image
           command: |
             docker build -t oc_lettings .
-            docker tag oc_lettings $DOCKERHUB_USERNAME/oc_lettings:$CIRCLE_SHA1
-            docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD
-            docker push $DOCKERHUB_USERNAME/oc_lettings:$CIRCLE_SHA1
+            docker tag oc_lettings registry.heroku.com/tp13-gma/web
+      - run:
+          name: Deploy to Heroku
+          command: |
+            echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
+            docker push registry.heroku.com/tp13-gma/web
+            heroku container:release web --app tp13-gma
 
 workflows:
-  build_test_contenairize_workflow:
+  build_test_deploy:
     jobs:
       - build_test
-      - contenairize:
+      - deploy:
           requires:
             - build_test
           filters:
