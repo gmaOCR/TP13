@@ -40,28 +40,28 @@ jobs:
       - run:
           name: Push Docker image to Heroku
           command: |
-          docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
-          docker push registry.heroku.com/$HEROKU_APP/web
+            docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
+            docker push registry.heroku.com/$HEROKU_APP/web
       - run:
           name: Release app on Heroku
           command: heroku container:release web --app $HEROKU_APP
 
-  workflows:
-    build_test_deploy:
-      jobs:
-        - build_test
-        - containerize:
-            requires:
-              - build_test
-            filters:
-              branches:
-                only: dev_ci_cd
-        - deploy:
-            requires:
-              - containerize
-            filters:
-              branches:
-                only: dev_ci_cd
+workflows:
+  build_test_deploy:
+    jobs:
+      - build_test
+      - containerize:
+          requires:
+            - build_test
+          filters:
+            branches:
+              only: dev_ci_cd
+      - deploy:
+          requires:
+            - containerize
+          filters:
+            branches:
+              only: dev_ci_cd
 
 # Définition du contexte CircleCI pour les variables d'environnement
 contexts:
