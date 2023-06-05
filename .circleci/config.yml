@@ -1,6 +1,23 @@
 version: 2.1
 
 jobs:
+  build_test:
+    docker:
+      - image: cimg/python:3.10
+    environment:
+      PIPENV_VENV_IN_PROJECT: true
+
+    steps:
+      - checkout
+      - run:
+          name: Install pipenv
+          command: |
+            pip install pipenv
+            pip install -r requirements.txt
+      - run:
+          name: Run tests
+          command: pipenv run pytest
+
   contenairize:
     docker:
       - image: docker:latest
@@ -16,6 +33,12 @@ jobs:
             docker push $DOCKERHUB_USERNAME/oc_lettings:$CIRCLE_SHA1
 
 workflows:
-  contenairize_workflow:
+  build_test_contenairize_workflow:
     jobs:
-      - contenairize
+      - build_test
+      - contenairize:
+          requires:
+            - build_test
+          filters:
+            branches:
+              only: main
