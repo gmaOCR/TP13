@@ -47,7 +47,4 @@ workflows:
 
 # Définition du contexte CircleCI pour les variables d'environnement
 contexts:
-  - heroku credentials:
-      HEROKU_API_KEY: YOUR_HEROKU_API_KEY
-      HEROKU_USERNAME: YOUR_HEROKU_USERNAME
-      HEROKU_PASSWORD: YOUR_HEROKU_PASSWORD
+  - heroku credentials
