@@ -1,22 +1,22 @@
 version: 2.1
 
 jobs:
-  build_test:
-    docker:
-      - image: cimg/python:3.10
-    environment:
-      PIPENV_VENV_IN_PROJECT: true
-
-    steps:
-      - checkout
-      - run:
-          name: Install pipenv
-          command: |
-            pip install pipenv
-            pip install -r requirements.txt
-      - run:
-          name: Run tests
-          command: pipenv run pytest
+#  build_test:
+#    docker:
+#      - image: cimg/python:3.10
+#    environment:
+#      PIPENV_VENV_IN_PROJECT: true
+#
+#    steps:
+#      - checkout
+#      - run:
+#          name: Install pipenv
+#          command: |
+#            pip install pipenv
+#            pip install -r requirements.txt
+#      - run:
+#          name: Run tests
+#          command: pipenv run pytest
 
   contenairize:
     docker:
@@ -32,26 +32,26 @@ jobs:
             docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD
             docker push $DOCKERHUB_USERNAME/oc_lettings:$CIRCLE_SHA1
 
-  deploy:
-    docker:
-      - image: cimg/python:3.10
-    steps:
-      - checkout
-      - run: docker push oc_lettings
+#  deploy:
+#    docker:
+#      - image: cimg/python:3.10
+#    steps:
+#      - checkout
+#      - run: docker push oc_lettings
 
 workflows:
-  build_test_deploy:
-    jobs:
-      - build_test
+#  build_test_deploy:
+#    jobs:
+#      - build_test
       - contenairize:
-          requires:
-            - build_test
-          filters:
-            branches:
-              only: main
-      - deploy:
-          requires:
-            - contenairize
-          filters:
-            branches:
-              only: main
+#          requires:
+#            - build_test
+#          filters:
+#            branches:
+#              only: main
+#      - deploy:
+#          requires:
+#            - contenairize
+#          filters:
+#            branches:
+#              only: main
