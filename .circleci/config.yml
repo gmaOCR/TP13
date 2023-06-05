@@ -49,8 +49,8 @@ jobs:
 workflows:
   build_test_deploy:
     jobs:
-      - containerize
       - build_test
+      - containerize:
           requires:
             - build_test
           filters:
