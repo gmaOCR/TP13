@@ -18,6 +18,7 @@ jobs:
   containerize:
     docker:
       - image: docker:latest
+        command: cat /proc/cpu
     steps:
       - setup_remote_docker
       - checkout
@@ -65,5 +66,4 @@ workflows:
             branches:
               only: dev_ci_cd
 
-# Définition du contexte CircleCI pour les variables d'environnement
 
