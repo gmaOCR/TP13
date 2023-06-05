@@ -51,7 +51,7 @@ workflows:
               only: main
       - deploy:
           requires:
-            - containerize
+            - contenairize
           filters:
             branches:
               only: main
