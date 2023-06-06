@@ -25,7 +25,7 @@ jobs:
           name: Build Docker image
           command: |
             docker build -t oc_lettings .
-            docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
+            docker tag oc_lettings oc_lettings:latest
 
   deploy:
     docker:
@@ -40,7 +40,8 @@ jobs:
       - run:
           name: Push Docker image to Heroku
           command: |
-            docker tag oc_lettings registry.heroku.com/$HEROKU_APP/web
+            docker pull oc_lettings:latest
+            docker tag oc_lettings:latest registry.heroku.com/$HEROKU_APP/web
             docker push registry.heroku.com/$HEROKU_APP/web
       - run:
           name: Release app on Heroku
