@@ -22,13 +22,16 @@ jobs:
       - setup_remote_docker
       - checkout
       - run:
-          name: Run app in Docker image
-          command: docker run -d -p 8000:8000 oc_lettings:latest
-      - run:
           name: Build Docker image
           command: |
             docker build -t oc_lettings .
             docker tag oc_lettings oc_lettings:latest
+      - run:
+          name: Run app in Docker image
+          command: docker run -d -p 8000:8000 oc_lettings:latest
+      - run:
+          name: Push image
+          command: |
             echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin
             docker tag oc_lettings:latest $DOCKER_USER/oc_lettings:latest
             docker push $DOCKER_USER/oc_lettings:latest
