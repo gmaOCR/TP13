@@ -45,11 +45,17 @@ jobs:
           command: |
             echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin
             docker pull $DOCKER_USER/oc_lettings:latest
-            #docker tag oc_lettings:latest registry.heroku.com/$HEROKU_APP/web
+            docker tag $DOCKER_USE/oc_lettings:latest registry.heroku.com/$HEROKU_APP/web
             docker push registry.heroku.com/$HEROKU_APP/web
       - run:
           name: Release app on Heroku
-          command: heroku container:release web --app $HEROKU_APP
+          command: |
+              if heroku container:release web --app $HEROKU_APP; then
+              echo "App already exists on Heroku, performing an update"
+              else
+              echo "App doesn't exist on Heroku, performing initial deployment"
+              heroku container:release web --app $HEROKU_APP
+              fi
 
 workflows:
   build_test_deploy:
