@@ -7,6 +7,6 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "127.0.0.1:8000"]
+CMD gunicorn tp13-gma.wsgi --bind 0.0.0.0:$PORT
 
 ENTRYPOINT ["top", "-b"]
