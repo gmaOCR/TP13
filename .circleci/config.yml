@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Push Docker image to Heroku
           command: |
-            echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin && docker pull oc_lettings:latest
+            echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin docker.io && docker pull oc_lettings:latest
             docker tag oc_lettings:latest registry.heroku.com/$HEROKU_APP/web
             docker push registry.heroku.com/$HEROKU_APP/web
       - run:
