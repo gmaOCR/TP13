@@ -1,1 +1,1 @@
-web: gunicorn tp13-gma.wsgi --bind 0.0.0.0:$PORT
+web: python manage.py runserver 0.0.0.0:$PORT
