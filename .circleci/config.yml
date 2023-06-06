@@ -45,7 +45,7 @@ jobs:
           command: |
             echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin
             docker pull $DOCKER_USER/oc_lettings:latest
-            docker tag $DOCKER_USE/oc_lettings:latest registry.heroku.com/$HEROKU_APP/web
+            docker tag oc_lettings:latest registry.heroku.com/$HEROKU_APP/web
             docker push registry.heroku.com/$HEROKU_APP/web
       - run:
           name: Release app on Heroku
