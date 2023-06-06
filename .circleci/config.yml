@@ -51,8 +51,8 @@ workflows:
     jobs:
       - build_test
       - containerize:
-        context:
-           - heroku credentials
+          context:
+             - heroku credentials
           requires:
             - build_test
           filters:
