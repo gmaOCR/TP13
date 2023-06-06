@@ -26,7 +26,7 @@ jobs:
           command: |
             docker build -t oc_lettings .
             docker tag oc_lettings oc_lettings:latest
-            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+            echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin
             docker tag oc_lettings:latest $DOCKER_USER/oc_lettings:latest
             docker push $DOCKER_USER/oc_lettings:latest
 
@@ -36,9 +36,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-#      - run:
-#          name: Login to Docker
-#          command:
       - run:
           name: Login to Heroku Container Registry
           command: |
@@ -46,7 +43,7 @@ jobs:
       - run:
           name: Push Docker image to Heroku
           command: |
-            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+            echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin
             docker pull oc_lettings:latest
             docker tag oc_lettings:latest registry.heroku.com/$HEROKU_APP/web
             docker push registry.heroku.com/$HEROKU_APP/web
