@@ -46,7 +46,7 @@ jobs:
             echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USER" --password-stdin
             docker pull $DOCKER_USER/oc_lettings:latest
             docker tag $DOCKER_USER/oc_lettings:latest registry.heroku.com/$HEROKU_APP/web
-            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            curl https://cli-assets.heroku.com/install.sh | sh
             heroku container:login
             heroku apps:info -a $HEROKU_APP || heroku create $HEROKU_APP
             docker push registry.heroku.com/$HEROKU_APP/web
