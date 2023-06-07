@@ -84,3 +84,6 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 - Un monitoring avec Sentry est mis en place
 
 Consulter Dockerfile pour le conteneur - Procfile pour la config Heroku - settings.py et urls.py pour la configuration Sentry
+
+Tag Circle-ci: 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/gmaOCR/TP13/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/gmaOCR/TP13/tree/main)
