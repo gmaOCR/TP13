@@ -122,6 +122,9 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles')
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 sentry_sdk.init(
     dsn="https://979ddc0b557f4ae4896f7cb741b7b6a4@o4505316878319616.ingest.sentry.io"
