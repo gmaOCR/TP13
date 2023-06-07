@@ -85,5 +85,11 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 Consulter Dockerfile pour le conteneur - Procfile pour la config Heroku - settings.py et urls.py pour la configuration Sentry
 
+### Développement
+
+- puller l'image: docker pull marianigr/oc_lettings:latest     
+- runner l'application: docker run -p 127.0.0.1:8000:8000 -e PORT=8000 -e DEPLOYMENT_ENV=local marianigr/oc_lettings:latest
+
+
 Tag Circle-ci: 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/gmaOCR/TP13/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/gmaOCR/TP13/tree/main)
