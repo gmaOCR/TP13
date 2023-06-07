@@ -1,7 +1,6 @@
 import pytest
 
 
-
 @pytest.mark.django_db
 def test_index_view(client, profile, profile_index_url):
     response = client.get(profile_index_url)
