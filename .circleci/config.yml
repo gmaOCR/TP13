@@ -79,7 +79,7 @@ workflows:
             - build_test
           filters:
             branches:
-              only: dev_ci_cd
+              only: main
       - deploy:
           context:
             - heroku credentials
@@ -88,4 +88,4 @@ workflows:
             - containerize
           filters:
             branches:
-              only: dev_ci_cd
+              only: main
