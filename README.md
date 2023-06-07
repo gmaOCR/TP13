@@ -75,3 +75,12 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+### Déploiement
+
+- Un commit + push sur la branch main github activera la mise en route d'un pipeline CI-CD sur Circle-Ci
+- Le pipeline teste le projet, contenairize l'image avec Docker et le déploie sur Heroku
+- L'adresse de test est: https://tp13-gma.herokuapp.com
+- Un monitoring avec Sentry est mis en place
+
+Consulter Dockerfile pour le conteneur - Procfile pour la config Heroku - settings.py et urls.py pour la configuration Sentry
